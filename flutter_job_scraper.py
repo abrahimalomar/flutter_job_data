@@ -1,39 +1,4 @@
 
-"""
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
-
-url = "https://wuzzuf.net/search/jobs/?a=hpb%7Cspbg&q=flutter"
-for j in range(1, 36):
-    print("------", j, "------")
-    try:
-        client = urlopen(url + "&page=" + str(j))
-    except Exception as e:
-        print("Error:", e)
-        continue
-
-    html = client.read()
-    client.close()
-    soup = BeautifulSoup(html, "html.parser")
-    file = open("flutterJobdata.csv", "a", encoding="utf-8")
-    addresscolum = "jobTitle,companyName,LocationJob,jobType,Skills\n"
-    file.write(addresscolum)
-    containers = soup.find_all("div", {"class": "css-1gatmva e1v1l3u10"})
-    print("Len : " + str(len(containers)))
-    
-    for container in containers:
-        print("************", j, "***************")
-
-        JobTitle = container.find("h2", {"class": "css-m604qf"}).text.strip()
-        compnyNam = container.find("a", {"class": "css-17s97q8"}).text.strip()
-        LocationJob = container.find("span", {"class": "css-5wys0k"}).text.strip()
-        jobType = container.find("div", {"class": "css-1lh32fc"}).text.strip()
-        Skils = container.find("div", {"class": "css-y4udm8"}).text.strip()
-
-        file.write(JobTitle + " , " + compnyNam + " , " + LocationJob + " , " + jobType + " , " + Skils + "\n")
-
-    file.close()
-"""
 import pandas as pd
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
